@@ -44,7 +44,7 @@
         <legend><%= _("Publish settings") %></legend>
         <div class='control-group'>
           <p><%= _("Status") %>: <strong><%= _(@article.state.to_s.downcase) %></strong> <%= toggle_element 'status' %></p>
-          <div id='status' style='display: none;'>
+          <div id='status' class="collapse">
             <label for="article_published" class='checkbox'>
               <%= check_box 'article', 'published'  %>
               <%= _("Published") %>
@@ -55,7 +55,7 @@
         <div class='control-group'>
           <p><%= _("Comments are %s and trackbacks are %s", content_tag(:strong, get_feedback_status(@article.allow_comments)), content_tag(:strong, get_feedback_status(@article.allow_pings))) %>
           <%= toggle_element 'conversation' %></p>
-          <div id='conversation' style='display: none'>
+          <div id='conversation' class="collapse">
             <label for="article_allow_pings" class='checkbox'>
               <%= check_box 'article', 'allow_pings' %>
               <%= _("Allow trackbacks") %>
@@ -69,15 +69,15 @@
         </div>
         <div class='control-group'>
           <p><%= _("Published") %> <strong><%= publish_now_or_already_published @article %></strong> <%= toggle_element 'publish' %></p>
-          <div id='publish' class='input-append' style='display: none;'>
-            <%= calendar_date_select 'article', 'published_at' %>
+          <div id='publish' class='collapse input-append'>
+            <%= text_field 'article', 'published_at', :class => 'datepicker' %>
             <%= ok_button('publish') %>
           </div>
           
         </div>
         <div class='control-group'>
           <p><%= _("Visibility") %>: <strong><%= @article.password.nil? || @article.password.empty? ? _("public") : _("protected") %></strong> <%= toggle_element 'visibility' %></p>
-          <div id='visibility' style='display: none'>
+          <div id='visibility' class="collapse">
             <label for="article_password"><%= _("Password:") %>
               <%= password_field :article, :password, :class => 'span10' %>
             </label>
@@ -86,14 +86,14 @@
         </div>
         <div class='control-group'>
           <%= _("Permalink") %>: <%= toggle_element 'permalink' %>
-          <div class='inputs-list' id='permalink' style='display: none'>
+          <div class='inputs-list collapse' id='permalink'>
             <%= text_field 'article', 'permalink', {:class => 'span10'} %>
             <%= ok_button('permalink') %>
           </div>
         </div>
         <div class='control-group'>
           <%= _("Article filter") %>: <strong id='text_filter_placeholder'><%= _("#{@article.text_filter.description}") %></strong> <%= toggle_element 'text_filter' %>
-          <div id='text_filter' style='display: none'>
+          <div id='text_filter' class="collapse">
             <select name="article[text_filter]" id="article_text_filter">
               <%= options_for_select text_filter_options, @article.text_filter %>
             </select>
